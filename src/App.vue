@@ -92,7 +92,7 @@ import '@/style/main.scss'
     flex-direction: column;
     row-gap: 4px;
 
-    font-family: var(--font-ui);
+    font-family: var(--font-secondary);
     font-size: 0.8rem;
     letter-spacing: .06em;
     text-transform: uppercase;
