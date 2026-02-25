@@ -1,0 +1,31 @@
+:root {
+  --white:     #FFFFFF;
+  --cream:     #FAF6F2;
+  --ivory:     #FEF9F5;
+  --blush:     #F5E6E0;
+  --rose:      #E8C4B8;
+  --dusty:     #C9A49A;
+  --mauve:     #8B6B61;
+  --bark:      #5C4033;
+
+  --sage:      #B5C4B1;
+  --sage-deep: #7A9973;
+  
+  --gold:      #C8A97A;
+  --gold-light:#E8D5B0;
+  
+  --text:      #3D2B24;
+  --text-soft: #8B7068;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Cormorant Garamond', serif;
+  --font-ui:      'Jost', sans-serif;
+
+  --background-1: radial-gradient(ellipse 140% 60% at 50% -10%, #F2D9D0 0%, transparent 70%), radial-gradient(ellipse 80% 80% at 110% 90%, #C9E0C5 0%, transparent 60%), radial-gradient(ellipse 60% 60% at -10% 80%, #F5E6E0 0%, transparent 50%);
+  --background-2: linear-gradient(180deg, #F2D9D0 10%, var(--ivory) 20%, var(--ivory) 100%);
+  --background-3: linear-gradient(180deg, #DFE8DD 10%, var(--ivory) 20%, var(--ivory) 100%);
+  --background-4: linear-gradient(180deg, #f8e3ba 10%, var(--ivory) 20%, var(--ivory) 100%);
+  
+  --shadow: 0 8px 32px rgba(92, 64, 51, 0.10);
+  --shadow-soft: 0 2px 16px rgba(92, 64, 51, 0.07);
+}
