@@ -1,4 +1,11 @@
 :root {
+  --safe-area-inset-top: var(--tg-viewport-safe-area-inset-top, 0px);
+  --content-safe-area-inset-top: var(--tg-viewport-content-safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: var(--tg-viewport-safe-area-inset-bottom, 0px);
+  --content-safe-area-inset-bottom: var(--tg-viewport-content-safe-area-inset-bottom, 0px);
+  --inset-top: calc(var(--safe-area-inset-top) + var(--content-safe-area-inset-top));
+  --inset-bottom: calc(var(--safe-area-inset-bottom) + var(--content-safe-area-inset-bottom));
+
   --white:     #FFFFFF;
   --cream:     #FAF6F2;
   --ivory:     #FEF9F5;
@@ -17,9 +24,9 @@
   --text:      #3D2B24;
   --text-soft: #8B7068;
 
-  --font-header: 'Playfair Display', serif;
-  --font-primary: 'Cormosrant Garamond', serif;
-  --font-secondary: 'Jost', sans-serif;
+  --font-header: 'Cormorant', serif;
+  --font-primary: 'Lora', serif;
+  --font-secondary: 'Montserrat', sans-serif;
 
   --background-1: radial-gradient(ellipse 140% 60% at 50% -10%, #F2D9D0 0%, transparent 70%), radial-gradient(ellipse 80% 80% at 110% 90%, #C9E0C5 0%, transparent 60%), radial-gradient(ellipse 60% 60% at -10% 80%, #F5E6E0 0%, transparent 50%);
   --background-2: linear-gradient(180deg, #F2D9D0 10%, var(--ivory) 20%, var(--ivory) 100%);

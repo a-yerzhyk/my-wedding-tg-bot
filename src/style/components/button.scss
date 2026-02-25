@@ -1,0 +1,16 @@
+.v-button {
+  font-size: .75rem;
+  padding: 11px 22px;
+
+  &__primary {
+    background: linear-gradient(135deg, var(--mauve) 0%, var(--bark) 100%);
+    color: var(--white);
+    border-radius: 50px;
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    font-size: .8rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 16px rgba(92, 64, 51, .25);
+  }
+}

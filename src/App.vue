@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import '@/style/main.scss'
+import { onMounted, ref } from 'vue';
+
+const isMounted = ref(false)
+
+onMounted(() => {
+  setTimeout(() => {
+    isMounted.value = true
+  }, 1000)
+})
 </script>
 
 <template>
@@ -7,7 +16,7 @@ import '@/style/main.scss'
     <div class="view">
       <RouterView class="menu-view" v-slot="{ Component }">
         <Transition name="route-animation">
-          <component :is="Component" />
+          <component :is="Component" :animate="isMounted" />
         </Transition>
       </RouterView>
     </div>
@@ -20,7 +29,7 @@ import '@/style/main.scss'
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A49A" stroke-width="2">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
         </svg>
-        <span>Home</span>
+        <span>Дім</span>
       </RouterLink>
       <RouterLink
         :to="'/details'"
@@ -30,7 +39,7 @@ import '@/style/main.scss'
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A49A" stroke-width="2">
           <rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
-        <span>Details</span>
+        <span>Інфо</span>
       </RouterLink>
       <RouterLink
         :to="'/wishlist'"
@@ -40,7 +49,7 @@ import '@/style/main.scss'
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A49A" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
         </svg>
-        <span>Wishlist</span>
+        <span>Вішлист</span>
       </RouterLink>
       <RouterLink
         :to="'/photos'"
@@ -50,7 +59,7 @@ import '@/style/main.scss'
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A49A" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2"></rect>
         </svg>
-        <span>Photos</span>
+        <span>Фото</span>
       </RouterLink>
     </div>
   </div>
@@ -60,21 +69,20 @@ import '@/style/main.scss'
 .app {
   width: 100dvw;
   height: 100dvh;
-  background: var(--ivory);
   display: flex;
   flex-direction: column;
 }
 
 .view {
   flex: 1;
-  overflow-y: auto;
   position: relative;
+  background: var(--ivory);
 }
 
 .menu {
   background-color: var(--cream);
   flex: 0 0 75px;
-  padding: 10px 0;
+  padding: 10px 0 var(--inset-bottom, 10px);
 
   display: flex;
   justify-content: space-evenly;
@@ -85,6 +93,7 @@ import '@/style/main.scss'
     height: 100%;
     width: auto;
     border-radius: 12px;
+    padding: 0 4px;
 
     display: flex;
     justify-content: center;
@@ -93,7 +102,7 @@ import '@/style/main.scss'
     row-gap: 4px;
 
     font-family: var(--font-secondary);
-    font-size: 0.8rem;
+    font-size: .55rem;
     letter-spacing: .06em;
     text-transform: uppercase;
     color: var(--text-soft);
@@ -103,14 +112,5 @@ import '@/style/main.scss'
       background-color: var(--blush);
     }
   }
-}
-.route-animation-enter-active,
-.route-animation-leave-active {
-  transition: opacity 1s ease;
-}
-
-.route-animation-enter-from,
-.route-animation-leave-to {
-  opacity: 0;
 }
 </style>
