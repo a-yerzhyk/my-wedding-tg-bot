@@ -8,7 +8,7 @@ import {
   viewport
 } from '@tma.js/sdk'
 
-const MAIN_HEADER_COLOR_RGB = '#1C9CE6'
+const MAIN_HEADER_COLOR_RGB = '#FEF9F5'
 
 export async function initSDK() {
   init()
