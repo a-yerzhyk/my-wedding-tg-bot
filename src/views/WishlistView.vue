@@ -8,12 +8,54 @@
         <p class="menu-view__subheading text-secondary">можливо вам знадобиться</p>
         <p class="menu-view__heading text-header">Вішлист</p>
       </div>
+
+      <div class="wishlist-view__list">
+        <div class="wishlist-view__item">
+          <div class="wishlist-view__item-icon">
+            🌸
+          </div>
+          <div class="wishlist-view__item-details text-primary">
+            Непотрібно букетів з якими невідомо що далі робити😅
+            <br>
+            Принеси одну квітку з якою ми зробимо один великий букет!
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .wishlist-view {
-  background: var(--background-3);
+  background: var(--background-4);
+
+  &__list {
+    padding: 8px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
+  &__item {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  &__item-icon {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+
+  &__item-details {
+    font-size: .95rem;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.4;
+  }
 }
 </style>
