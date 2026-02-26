@@ -82,7 +82,7 @@ onMounted(() => {
 .menu {
   background-color: var(--cream);
   flex: 0 0 75px;
-  padding: 10px 0 var(--inset-bottom, 10px);
+  padding: 10px 0 var(--inset-bottom);
 
   display: flex;
   justify-content: space-evenly;
