@@ -15,7 +15,7 @@ export async function initSDK() {
     viewport.expand()
     viewport.bindCssVars()
     viewport.isFullscreen()
-    if (!viewport.isFullscreen() && viewport.requestFullscreen.isAvailable() && isMobile()) {
+    if (viewport.requestFullscreen.isAvailable() && isMobile()) {
       viewport.requestFullscreen()
     } else {
       viewport.exitFullscreen()
