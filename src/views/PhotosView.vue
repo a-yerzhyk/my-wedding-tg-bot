@@ -11,7 +11,7 @@
 
 <style lang="scss" scoped>
 .photos-view {
-  background: var(--background-4);
+  background: var(--background-3);
 
   .menu-view__content {
     display: flex;
