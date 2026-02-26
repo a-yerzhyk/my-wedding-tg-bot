@@ -2,7 +2,7 @@
   --safe-area-inset-top: var(--tg-viewport-safe-area-inset-top, 0px);
   --content-safe-area-inset-top: var(--tg-viewport-content-safe-area-inset-top, 0px);
   --safe-area-inset-bottom: var(--tg-viewport-safe-area-inset-bottom, 0px);
-  --content-safe-area-inset-bottom: var(--tg-viewport-content-safe-area-inset-bottom, 10px);
+  --content-safe-area-inset-bottom: var(--tg-viewport-content-safe-area-inset-bottom, 0px);
   --inset-top: calc(var(--safe-area-inset-top) + var(--content-safe-area-inset-top));
   --inset-bottom: calc(var(--safe-area-inset-bottom) + var(--content-safe-area-inset-bottom));
 
