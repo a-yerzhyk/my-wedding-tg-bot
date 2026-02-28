@@ -6,9 +6,9 @@ export function setupApiClient() {
   client.instance.interceptors.response.use(
     (response) => response,
     (error) => {
-      if (error.response?.status === 401) {
-        window.location.reload()
-      }
+      // if (error.response?.status === 401) {
+      //   window.location.reload()
+      // }
       return Promise.reject(error)
     }
   )
