@@ -18,11 +18,11 @@ export type PostApiAuthTelegramResponses = {
      * Default Response
      */
     200: {
-        token: string;
         user: {
             firstName: string;
             lastName?: string;
             role: 'admin' | 'guest';
+            approvalStatus?: 'pending' | 'approved' | 'denied';
         };
     };
 };
