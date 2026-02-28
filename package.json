@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev-bot": "npx concurrently \"vite\" \"ngrok http 3000 --url=micheal-binate-raegan.ngrok-free.dev\"",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
