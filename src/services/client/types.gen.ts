@@ -152,7 +152,7 @@ export type GetApiGuestsRequestsResponses = {
         firstName?: string;
         lastName?: string;
         username?: string;
-        status: 'pending' | 'approved' | 'denied';
+        approvalStatus: 'pending' | 'approved' | 'denied';
         createdAt: string;
     }>;
 };
