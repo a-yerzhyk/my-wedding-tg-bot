@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router'
 
 import { isTMA } from '@tma.js/sdk'
-import { initSDK } from './services/telegram-sdk'
+import { initSDK } from './services/tma-sdk'
 
 const isTma = isTMA()
 if (isTma) {
