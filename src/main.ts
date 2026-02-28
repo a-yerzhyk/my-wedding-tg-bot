@@ -7,6 +7,8 @@ import router from './router'
 import { isTMA } from '@tma.js/sdk'
 import { initSDK } from './services/tma-sdk'
 import { setupApiClient } from './services/api'
+import '@/style/tailwind.css'
+import '@/style/main.scss'
 
 setupApiClient()
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import '@/style/main.scss'
 import { onMounted, ref } from 'vue';
 
 const isMounted = ref(false)
