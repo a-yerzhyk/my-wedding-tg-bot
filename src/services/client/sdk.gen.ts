@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestMeData, GetApiGuestsRequestMeResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, GetApiRsvpAllData, GetApiRsvpAllResponses, GetApiRsvpMeData, GetApiRsvpMeResponses, GetApiRsvpStatsData, GetApiRsvpStatsResponses, PatchApiGuestsRequestsByRequestIdData, PatchApiGuestsRequestsByRequestIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGalleryUploadData, PostApiGalleryUploadResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses, PostApiRsvpData, PostApiRsvpResponses } from './types.gen';
+import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGalleryUploadData, PostApiGalleryUploadResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -29,50 +29,6 @@ export const postApiAuthTelegram = <ThrowOnError extends boolean = false>(option
         'Content-Type': 'application/json',
         ...options.headers
     }
-});
-
-/**
- * Submit or update RSVP
- */
-export const postApiRsvp = <ThrowOnError extends boolean = false>(options: Options<PostApiRsvpData, ThrowOnError>) => (options.client ?? client).post<PostApiRsvpResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/rsvp/',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Get own RSVP
- */
-export const getApiRsvpMe = <ThrowOnError extends boolean = false>(options?: Options<GetApiRsvpMeData, ThrowOnError>) => (options?.client ?? client).get<GetApiRsvpMeResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/rsvp/me',
-    ...options
-});
-
-/**
- * Get all RSVPs (admin only)
- */
-export const getApiRsvpAll = <ThrowOnError extends boolean = false>(options?: Options<GetApiRsvpAllData, ThrowOnError>) => (options?.client ?? client).get<GetApiRsvpAllResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/rsvp/all',
-    ...options
-});
-
-/**
- * Get attendance stats (admin only)
- */
-export const getApiRsvpStats = <ThrowOnError extends boolean = false>(options?: Options<GetApiRsvpStatsData, ThrowOnError>) => (options?.client ?? client).get<GetApiRsvpStatsResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/rsvp/stats',
-    ...options
 });
 
 /**
@@ -126,16 +82,6 @@ export const postApiGuestsRequest = <ThrowOnError extends boolean = false>(optio
 });
 
 /**
- * Check own request status
- */
-export const getApiGuestsRequestMe = <ThrowOnError extends boolean = false>(options?: Options<GetApiGuestsRequestMeData, ThrowOnError>) => (options?.client ?? client).get<GetApiGuestsRequestMeResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/guests/request/me',
-    ...options
-});
-
-/**
  * List all guest requests (admin only)
  */
 export const getApiGuestsRequests = <ThrowOnError extends boolean = false>(options?: Options<GetApiGuestsRequestsData, ThrowOnError>) => (options?.client ?? client).get<GetApiGuestsRequestsResponses, unknown, ThrowOnError>({
@@ -148,10 +94,10 @@ export const getApiGuestsRequests = <ThrowOnError extends boolean = false>(optio
 /**
  * Approve or deny a guest request (admin only)
  */
-export const patchApiGuestsRequestsByRequestId = <ThrowOnError extends boolean = false>(options: Options<PatchApiGuestsRequestsByRequestIdData, ThrowOnError>) => (options.client ?? client).patch<PatchApiGuestsRequestsByRequestIdResponses, unknown, ThrowOnError>({
+export const patchApiGuestsRequestsByUserId = <ThrowOnError extends boolean = false>(options: Options<PatchApiGuestsRequestsByUserIdData, ThrowOnError>) => (options.client ?? client).patch<PatchApiGuestsRequestsByUserIdResponses, unknown, ThrowOnError>({
     responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/guests/requests/{requestId}',
+    url: '/api/guests/requests/{userId}',
     ...options,
     headers: {
         'Content-Type': 'application/json',

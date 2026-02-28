@@ -29,87 +29,6 @@ export type PostApiAuthTelegramResponses = {
 
 export type PostApiAuthTelegramResponse = PostApiAuthTelegramResponses[keyof PostApiAuthTelegramResponses];
 
-export type PostApiRsvpData = {
-    body: {
-        status: 'attending' | 'not_attending' | 'maybe';
-    };
-    path?: never;
-    query?: never;
-    url: '/api/rsvp/';
-};
-
-export type PostApiRsvpResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        message: string;
-    };
-};
-
-export type PostApiRsvpResponse = PostApiRsvpResponses[keyof PostApiRsvpResponses];
-
-export type GetApiRsvpMeData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/rsvp/me';
-};
-
-export type GetApiRsvpMeResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        userId: string;
-        status: string;
-        createdAt: string;
-        updatedAt?: string;
-    };
-};
-
-export type GetApiRsvpMeResponse = GetApiRsvpMeResponses[keyof GetApiRsvpMeResponses];
-
-export type GetApiRsvpAllData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/rsvp/all';
-};
-
-export type GetApiRsvpAllResponses = {
-    /**
-     * Default Response
-     */
-    200: Array<{
-        userId: string;
-        status: string;
-        guest: string;
-    }>;
-};
-
-export type GetApiRsvpAllResponse = GetApiRsvpAllResponses[keyof GetApiRsvpAllResponses];
-
-export type GetApiRsvpStatsData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/rsvp/stats';
-};
-
-export type GetApiRsvpStatsResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        attending: number;
-        notAttending: number;
-        maybe: number;
-    };
-};
-
-export type GetApiRsvpStatsResponse = GetApiRsvpStatsResponses[keyof GetApiRsvpStatsResponses];
-
 export type PostApiGalleryUploadData = {
     body?: never;
     path?: never;
@@ -217,24 +136,6 @@ export type PostApiGuestsRequestResponses = {
 
 export type PostApiGuestsRequestResponse = PostApiGuestsRequestResponses[keyof PostApiGuestsRequestResponses];
 
-export type GetApiGuestsRequestMeData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/guests/request/me';
-};
-
-export type GetApiGuestsRequestMeResponses = {
-    /**
-     * Default Response
-     */
-    200: {
-        status: 'pending' | 'approved' | 'denied';
-    };
-};
-
-export type GetApiGuestsRequestMeResponse = GetApiGuestsRequestMeResponses[keyof GetApiGuestsRequestMeResponses];
-
 export type GetApiGuestsRequestsData = {
     body?: never;
     path?: never;
@@ -248,31 +149,28 @@ export type GetApiGuestsRequestsResponses = {
      */
     200: Array<{
         id: string;
-        userId: string;
-        status: string;
+        firstName?: string;
+        lastName?: string;
+        username?: string;
+        status: 'pending' | 'approved' | 'denied';
         createdAt: string;
-        user?: {
-            firstName?: string;
-            lastName?: string;
-            username?: string;
-        };
     }>;
 };
 
 export type GetApiGuestsRequestsResponse = GetApiGuestsRequestsResponses[keyof GetApiGuestsRequestsResponses];
 
-export type PatchApiGuestsRequestsByRequestIdData = {
+export type PatchApiGuestsRequestsByUserIdData = {
     body: {
         action: 'approve' | 'deny';
     };
     path: {
-        requestId: string;
+        userId: string;
     };
     query?: never;
-    url: '/api/guests/requests/{requestId}';
+    url: '/api/guests/requests/{userId}';
 };
 
-export type PatchApiGuestsRequestsByRequestIdResponses = {
+export type PatchApiGuestsRequestsByUserIdResponses = {
     /**
      * Default Response
      */
@@ -281,4 +179,4 @@ export type PatchApiGuestsRequestsByRequestIdResponses = {
     };
 };
 
-export type PatchApiGuestsRequestsByRequestIdResponse = PatchApiGuestsRequestsByRequestIdResponses[keyof PatchApiGuestsRequestsByRequestIdResponses];
+export type PatchApiGuestsRequestsByUserIdResponse = PatchApiGuestsRequestsByUserIdResponses[keyof PatchApiGuestsRequestsByUserIdResponses];
