@@ -12,35 +12,32 @@
 .home-animation-1-enter-active {
   transition: opacity 1s ease 0.2s;
 }
-
-.home-animation-1-enter-from {
-  opacity: 0;
-}
-
 // 2
 .home-animation-2-enter-active {
   transition: opacity 1.4s ease 1.5s;
 }
-
-.home-animation-2-enter-from {
-  opacity: 0;
-}
-
 // 3
 .home-animation-3-enter-active {
   transition: opacity 1.1s ease 3s;
 }
-
-.home-animation-3-enter-from {
-  opacity: 0;
-}
-
 // 4
 .home-animation-4-enter-active {
   transition: opacity 1s ease 6s;
 }
 
+.home-animation-1-enter-from,
+.home-animation-2-enter-from,
+.home-animation-3-enter-from,
 .home-animation-4-enter-from {
   opacity: 0;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
