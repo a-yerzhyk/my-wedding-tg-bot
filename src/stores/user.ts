@@ -3,23 +3,22 @@ import { ref, computed } from 'vue'
 import { isTMA, retrieveRawInitData } from '@tma.js/sdk'
 import {
   postApiAuthTelegram,
-  getApiGuestsRequestMe,
   postApiGuestsRequest
 } from '@/services/client/sdk.gen'
-import type { GetApiGuestsRequestMeResponse, PostApiAuthTelegramResponse } from '@/services/client'
+import type { PostApiAuthTelegramResponse } from '@/services/client'
 
-export type UserStatus = GetApiGuestsRequestMeResponse['status']
+export type UserStatus = PostApiAuthTelegramResponse['user']['approvalStatus']
 export type User = PostApiAuthTelegramResponse['user']
 
 export const useUserStore = defineStore('userStore', () => {
   const user = ref<User | null>(null)
-  const status = ref<UserStatus | null>(null)
   const isLoading = ref(false)
 
   const isAdmin = computed(() => user.value?.role === 'admin')
-  const isApproved = computed(() => status.value === 'approved' || isAdmin.value)
-  const isPending = computed(() => status.value === 'pending')
-  const isDenied = computed(() => status.value === 'denied')
+  const hasStatus = computed(() => !!user.value?.approvalStatus)
+  const isApproved = computed(() => user.value?.approvalStatus === 'approved' || isAdmin.value)
+  const isPending = computed(() => user.value?.approvalStatus === 'pending')
+  const isDenied = computed(() => user.value?.approvalStatus === 'denied')
 
   async function init() {
     if (!isTMA()) {
@@ -46,9 +45,6 @@ export const useUserStore = defineStore('userStore', () => {
       }
 
       user.value = response.data.user
-
-      // Fetch guest request status after auth
-      await fetchStatus()
     } catch (e) {
       console.error(e)
     } finally {
@@ -56,41 +52,21 @@ export const useUserStore = defineStore('userStore', () => {
     }
   }
 
-  async function fetchStatus() {
-    // Admins are always approved — no need to check request status
-    if (isAdmin.value) {
-      status.value = 'approved'
-      return
-    }
-
-    try {
-      const res = await getApiGuestsRequestMe()
-      if (!res.data) {
-        throw new Error('Failed to fetch guest request status')
-      }
-      status.value = res.data.status
-    } catch {
-      // No request submitted yet
-      status.value = null
-    }
-  }
-
   function submitGuestRequest() {
-    postApiGuestsRequest().then(() => {
-      status.value = 'pending'
+    return postApiGuestsRequest().then(() => {
+      user.value!.approvalStatus = 'pending'
     })
   }
 
   return {
     user,
-    status,
     isLoading,
+    hasStatus,
     isAdmin,
     isApproved,
     isPending,
     isDenied,
     init,
-    fetchStatus,
     submitGuestRequest,
   }
 })

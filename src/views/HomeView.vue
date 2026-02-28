@@ -1,11 +1,20 @@
 <script setup lang="ts">
+import VButton from '@/components/VButton.vue';
 import { useUserStore } from '@/stores/user';
+import { ref } from 'vue';
 
 defineProps<{
   animate: boolean
 }>()
 
 const userStore = useUserStore()
+
+const isRequestSent = ref(false)
+function sendRequest() {
+  userStore.submitGuestRequest().then(() => {
+    isRequestSent.value = true
+  })
+}
 </script>
 
 <template>
@@ -43,6 +52,12 @@ const userStore = useUserStore()
         <p v-if="animate" class="home-view__decription text-primary">
           Ми будемо дуже раді розділити<br/>це свято з Вами!
         </p>
+      </Transition>
+      <Transition :name="!isRequestSent ? 'home-animation-3' : 'fade'">
+        <VButton v-if="animate && (!userStore.hasStatus || isRequestSent)" type="success" @click="sendRequest">
+          <p v-if="!userStore.hasStatus">Прийняти запрошення</p>
+          <p v-else>Заявку відправлено!</p>
+        </VButton>
       </Transition>
       <Transition name="home-animation-4" appear>
         <RouterLink to="/details" class="v-button v-button__primary">
