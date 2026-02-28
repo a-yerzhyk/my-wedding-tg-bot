@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useUserStore } from '@/stores/user';
+
 defineProps<{
   animate: boolean
 }>()
+
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -19,7 +23,7 @@ defineProps<{
       </Transition>
       <Transition name="home-animation-1" >
         <p v-if="animate" class="home-view__invitation text-secondary">
-          Ви запрошені
+          {{ userStore.user?.firstName ? userStore.user.firstName + ', ' : '' }}Ви запрошені
         </p>
       </Transition>
       <Transition name="home-animation-2" >
