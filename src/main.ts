@@ -17,6 +17,20 @@ if (isTma) {
   initSDK()
 }
 
+if (import.meta.env.DEV) {
+  try {
+    import('eruda').then(eruda => {
+      eruda.default.init({
+        useShadowDom: false,
+        tool: ['console', 'elements', 'network', 'resources', 'info', 'storage', 'application']
+      })
+      eruda.default.position({ x: 20, y: -200 })
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 const app = createApp(App)
 
 app.use(createPinia())
