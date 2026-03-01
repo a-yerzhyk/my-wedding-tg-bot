@@ -1,0 +1,20 @@
+.chip {
+  background: var(--blush);
+  color: var(--mauve);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-secondary);
+  font-size: .7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+
+  &_sage {
+    background: #DDE8DB;
+    color: var(--sage-deep);
+  }
+
+  &_gold {
+    background: var(--gold-light);
+    color: #8A6B3A;
+  }
+}
