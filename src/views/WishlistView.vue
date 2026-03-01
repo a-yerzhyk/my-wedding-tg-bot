@@ -18,6 +18,11 @@
             Непотрібно букетів з якими невідомо що далі робити😅
             <br>
             Принеси одну квітку з якою ми зробимо один великий букет!
+            <br>
+            <br>
+            <p class="text-secondary text-xs underline">
+              P.S. Без лілій! Вони токсичні для котів
+            </p>
           </div>
         </div>
       </div>
@@ -37,18 +42,19 @@
   }
 
   &__item {
-    background: var(--white);
+    // background: var(--white);
     border-radius: 14px;
     padding: 14px 16px;
-    box-shadow: var(--shadow-soft);
+    // box-shadow: var(--shadow-soft);
     display: flex;
+    flex-direction: column;
     gap: 12px;
     align-items: center;
   }
 
   &__item-icon {
     flex-shrink: 0;
-    font-size: 1.1rem;
+    font-size: 3.1rem;
   }
 
   &__item-details {
