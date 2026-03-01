@@ -23,7 +23,7 @@
             </p>
             <p class="details-view__item-details text-primary">
               · Аперитив: 14:00<br/>
-              · Банкет: 16:00
+              · Банкет: 15:00
             </p>
           </div>
         </div>

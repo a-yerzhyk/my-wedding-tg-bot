@@ -25,6 +25,14 @@
             </p>
           </div>
         </div>
+        <div class="wishlist-view__item">
+          <div class="wishlist-view__item-icon">
+            🥳
+          </div>
+          <div class="wishlist-view__item-details text-primary">
+            А самим головним подарунком для нас буде ваша участь, святковий настрій та хороший апетит!
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,10 +50,10 @@
   }
 
   &__item {
-    // background: var(--white);
+    background: var(--white);
     border-radius: 14px;
     padding: 14px 16px;
-    // box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
     gap: 12px;
