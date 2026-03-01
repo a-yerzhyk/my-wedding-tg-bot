@@ -11,7 +11,7 @@ export type AuthUser = AuthResponse['user']
 
 // Guests
 export type GuestUser = GetApiGuestsRequestsResponse extends Array<infer T> ? T : never
-export type ApprovalStatus = GuestUser['status']
+export type ApprovalStatus = GuestUser['approvalStatus']
 
 // Gallery
 export type Gallery = GetApiGalleryResponse extends Array<infer T> ? T : never
