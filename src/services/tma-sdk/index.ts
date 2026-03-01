@@ -33,7 +33,7 @@ export function openProfile(username: string) {
 
 export function shareBotLink() {
   if (shareURL.isAvailable()) {
-    shareURL(import.meta.env.VITE_BOT_URL,
+    shareURL(import.meta.env.VITE_APP_URL,
       "\nПривіт! Цей бот присвячений святкуванню весілля Андрія та Марії🥳\n\nВідкривай апку щоб підтвердити участь, дізнатися більше інформації щодо святкування і багато іншого😃")
   }
 }
