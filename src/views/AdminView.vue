@@ -5,16 +5,12 @@ import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { getApiGuestsRequests } from '@/services/client';
 import type { GuestUser } from '@/services/types'
-import { openTelegramLink } from '@tma.js/sdk'
+import { openProfile } from '@/services/tma-sdk';
 
 const router = useRouter()
 const userStore = useUserStore()
 
 const usersList = ref<GuestUser[]>([])
-
-function openProfile(username: string) {
-  openTelegramLink(`https://t.me/${username}`)
-}
 
 onMounted(() => {
   if (!userStore.isAdmin) {
@@ -43,16 +39,26 @@ onMounted(() => {
           :key="user.id"
           class="guest-request__item bg-white rounded p-2"
         >
-          <div class="space-y-1">
-            <p>{{ user.firstName }} {{ user.lastName }}</p>
+          <div class="">
+            <p class="text-primary text-base">
+              {{ user.firstName }} {{ user.lastName }}
+            </p>
             <p
-              class="link"
+              class="link text-sm"
               @click="() => user.username && openProfile(user.username)"
             >
               @{{ user.username }}
             </p>
           </div>
-          <p>{{ user.approvalStatus }}</p>
+          <div
+            class="chip"
+            :class="{
+              'chip_gold': user.approvalStatus === 'pending',
+              'chip_sage': user.approvalStatus === 'approved',
+            }"
+          >
+            {{ user.approvalStatus }}
+          </div>
         </div>
       </div>
     </div>
