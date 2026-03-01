@@ -1,4 +1,5 @@
 import { client } from '@/services/client/client.gen'
+import { patchApiGuestsRequestsByUserId } from './client'
 
 export function setupApiClient() {
   client.instance.defaults.withCredentials = true
@@ -12,4 +13,19 @@ export function setupApiClient() {
       return Promise.reject(error)
     }
   )
+}
+
+export function updateGuestRequestStatus(userId: string, action: 'approve' | 'deny') {
+  return patchApiGuestsRequestsByUserId({
+    path: {
+      userId
+    },
+    body: {
+      action: action
+    }
+  }).then((response) => {
+    if (response.status !== 200) {
+      throw new Error('Failed to update guest request status')
+    }
+  })
 }

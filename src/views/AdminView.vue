@@ -6,11 +6,39 @@ import { ref } from 'vue';
 import { getApiGuestsRequests } from '@/services/client';
 import type { GuestUser } from '@/services/types'
 import { openProfile } from '@/services/tma-sdk';
+import VButton from '@/components/VButton.vue';
+import { updateGuestRequestStatus } from '@/services/api';
 
 const router = useRouter()
 const userStore = useUserStore()
 
 const usersList = ref<GuestUser[]>([])
+
+const approveUser = (userId: string) => {
+  updateGuestRequestStatus(userId, 'approve').then(() => {
+    usersList.value = usersList.value.map((user) => {
+      if (user.id === userId) {
+        user.approvalStatus = 'approved'
+      }
+      return user
+    })
+  }).catch(() => {
+    console.log('error')
+  })
+}
+
+const denyUser = (userId: string) => {
+  updateGuestRequestStatus(userId, 'deny').then(() => {
+    usersList.value = usersList.value.map((user) => {
+      if (user.id === userId) {
+        user.approvalStatus = 'denied'
+      }
+      return user
+    })
+  }).catch(() => {
+    console.log('error')
+  })
+}
 
 onMounted(() => {
   if (!userStore.isAdmin) {
@@ -50,15 +78,33 @@ onMounted(() => {
               @{{ user.username }}
             </p>
           </div>
-          <div
-            class="chip"
-            :class="{
-              'chip_gold': user.approvalStatus === 'pending',
-              'chip_sage': user.approvalStatus === 'approved',
-            }"
-          >
-            {{ user.approvalStatus }}
-          </div>
+          <Transition name="fade">
+            <div v-if="user.approvalStatus === 'pending'" class="flex gap-x-1">
+              <VButton
+                type="danger"
+                size="small"
+                @click="() => denyUser(user.id)"
+              >
+                deny
+              </VButton>
+              <VButton
+                type="success"
+                size="small"
+                @click="() => approveUser(user.id)"
+              >
+                approve
+              </VButton>
+            </div>
+            <div
+              v-else-if="user.approvalStatus"
+              class="chip"
+              :class="{
+                'chip_sage': user.approvalStatus === 'approved',
+              }"
+            >
+              {{ user.approvalStatus }}
+            </div>
+          </Transition>
         </div>
       </div>
     </div>
