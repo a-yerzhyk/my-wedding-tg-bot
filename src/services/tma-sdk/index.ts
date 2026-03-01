@@ -3,6 +3,7 @@ import {
   backButton,
   init,
   miniApp,
+  openTelegramLink,
   postEvent,
   viewport
 } from '@tma.js/sdk'
@@ -23,4 +24,8 @@ export async function initSDK() {
   })
 
   postEvent('web_app_toggle_orientation_lock', { locked: true })
+}
+
+export function openProfile(username: string) {
+  openTelegramLink(`https://t.me/${username}`)
 }
