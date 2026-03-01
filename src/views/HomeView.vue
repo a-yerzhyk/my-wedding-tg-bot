@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import VButton from '@/components/VButton.vue';
-import { useUserStore } from '@/stores/user';
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
+import { shareBotLink } from '@/services/tma-sdk';
+import VButton from '@/components/VButton.vue';
 
 defineProps<{
   animate: boolean
@@ -57,9 +58,20 @@ function sendRequest() {
         </p>
       </Transition>
       <Transition :name="!isRequestSent ? 'home-animation-3' : 'fade'">
-        <VButton v-if="animate && (!userStore.hasStatus || isRequestSent)" type="success" @click="sendRequest">
+        <VButton
+          v-if="animate && (!userStore.hasStatus || isRequestSent)"
+          type="success"
+          @click="sendRequest"
+        >
           <p v-if="!userStore.hasStatus">Прийняти запрошення</p>
           <p v-else>Заявку відправлено!</p>
+        </VButton>
+        <VButton
+          v-else-if="animate && userStore.isApproved"
+          type="success"
+          @click="shareBotLink"
+        >
+          Поширити запрошення!
         </VButton>
       </Transition>
       <Transition name="home-animation-4" appear>

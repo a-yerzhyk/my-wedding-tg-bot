@@ -5,6 +5,7 @@ import {
   miniApp,
   openTelegramLink,
   postEvent,
+  shareURL,
   viewport
 } from '@tma.js/sdk'
 
@@ -28,4 +29,11 @@ export async function initSDK() {
 
 export function openProfile(username: string) {
   openTelegramLink(`https://t.me/${username}`)
+}
+
+export function shareBotLink() {
+  if (shareURL.isAvailable()) {
+    shareURL(import.meta.env.VITE_BOT_URL,
+      "\nПривіт! Цей бот присвячений святкуванню весілля Андрія та Марії😃\n\nЗаходь в бота, щоб дізнатися більше)")
+  }
 }
