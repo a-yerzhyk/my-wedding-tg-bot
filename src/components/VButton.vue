@@ -1,6 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  type?: 'primary' | 'success',
+  type?: 'primary' | 'success' | 'danger',
   size?: 'small' | 'medium',
 }>(), {
   type: 'primary',
