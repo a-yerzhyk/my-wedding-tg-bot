@@ -5,13 +5,10 @@ import {
   postApiAuthTelegram,
   postApiGuestsRequest
 } from '@/services/client/sdk.gen'
-import type { PostApiAuthTelegramResponse } from '@/services/client'
-
-export type UserStatus = PostApiAuthTelegramResponse['user']['approvalStatus']
-export type User = PostApiAuthTelegramResponse['user']
+import type { AuthUser } from '@/services/types'
 
 export const useUserStore = defineStore('userStore', () => {
-  const user = ref<User | null>(null)
+  const user = ref<AuthUser | null>(null)
   const isLoading = ref(false)
 
   const isAdmin = computed(() => user.value?.role === 'admin')
