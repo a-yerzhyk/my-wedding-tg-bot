@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VButton from '@/components/VButton.vue';
 import { useUserStore } from '@/stores/user';
+import { openProfile } from '@/services/tma-sdk';
 
 const userStore = useUserStore()
 </script>
@@ -12,10 +13,18 @@ const userStore = useUserStore()
         <div class="text-header" v-if="userStore.isApproved">
           У розробці...
         </div>
-        <p class="text-header text-center" v-else-if="userStore.isPending">
+        <div class="text-header text-center" v-else-if="userStore.isPending">
           Ваша заявка розглядається.<br/>
-          Для пришвидшення процесу розгляду зверніться до винуватців цього дійства :)
-        </p>
+          Для пришвидшення процесу розгляду зверніться до винуватців цього дійства :)<br/>
+          <div class="flex justify-center gap-2 text-lg">
+            <p class="link" @click="() => openProfile('andriiyer')">
+              @andriiyer
+            </p>
+            <p class="link" @click="() => openProfile('Mariia_bittersweet')">
+              @Mariia_bittersweet
+            </p>
+          </div>
+        </div>
         <p class="text-header" v-else-if="userStore.isDenied">
           Ваша заявка відхилена
         </p>
