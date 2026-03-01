@@ -55,3 +55,7 @@ html {
   color: var(--rose);
   text-decoration: underline;
 }
+
+.top-inset-safe {
+  top: var(--inset-top);
+}

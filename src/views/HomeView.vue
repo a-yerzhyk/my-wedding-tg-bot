@@ -20,7 +20,7 @@ function sendRequest() {
 <template>
   <div class="home-view">
     <div class="menu-view__content">
-      <RouterLink v-if="userStore.isAdmin" to="/admin-panel" class="absolute top-2 right-2 p-1 border border-rose rounded text-secondary text-xs">
+      <RouterLink v-if="userStore.isAdmin" to="/admin-panel" class="absolute top-inset-safe right-2 p-1 border border-rose rounded text-secondary text-xs">
         Адмінка
       </RouterLink>
       <Transition name="home-animation-1" >
