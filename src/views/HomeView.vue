@@ -75,7 +75,7 @@ function sendRequest() {
         </VButton>
       </Transition>
       <Transition name="home-animation-4" appear>
-        <RouterLink to="/details" class="v-button v-button__primary">
+        <RouterLink to="/details" class="v-button v-button_primary">
           До інформації
         </RouterLink>
       </Transition>
