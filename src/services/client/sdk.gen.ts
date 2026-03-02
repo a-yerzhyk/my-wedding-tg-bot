@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses } from './types.gen';
+import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses, PostApiWebhookData, PostApiWebhookResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -94,3 +94,5 @@ export const patchApiGuestsRequestsByUserId = <ThrowOnError extends boolean = fa
         ...options.headers
     }
 });
+
+export const postApiWebhook = <ThrowOnError extends boolean = false>(options?: Options<PostApiWebhookData, ThrowOnError>) => (options?.client ?? client).post<PostApiWebhookResponses, unknown, ThrowOnError>({ url: '/api/webhook/', ...options });

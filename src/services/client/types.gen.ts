@@ -22,6 +22,7 @@ export type PostApiAuthTelegramResponses = {
             firstName: string;
             lastName?: string;
             role: 'admin' | 'guest';
+            avatarUrl?: string;
             approvalStatus?: 'pending' | 'approved' | 'denied';
         };
     };
@@ -42,10 +43,17 @@ export type GetApiGalleryResponses = {
      */
     200: Array<{
         id: string;
-        guestName: string;
         coverPhotoUrl?: string;
         photoCount: number;
         previews: Array<string>;
+        isOwner?: boolean;
+        user: {
+            firstName: string;
+            lastName?: string;
+            username?: string;
+            role: 'admin' | 'guest';
+            avatarUrl?: string;
+        };
     }>;
 };
 
@@ -66,7 +74,6 @@ export type GetApiGalleryByGalleryIdResponses = {
      */
     200: {
         id: string;
-        guestName: string;
         photoCount: number;
         photos: Array<{
             id: string;
@@ -74,6 +81,13 @@ export type GetApiGalleryByGalleryIdResponses = {
             thumbnailUrl: string;
             uploadedAt: string;
         }>;
+        user?: {
+            firstName: string;
+            lastName?: string;
+            username?: string;
+            role: 'admin' | 'guest';
+            avatarUrl?: string;
+        };
     };
 };
 
@@ -134,6 +148,7 @@ export type GetApiGuestsRequestsResponses = {
         lastName?: string;
         username?: string;
         approvalStatus: 'pending' | 'approved' | 'denied';
+        avatarUrl?: string;
         createdAt: string;
     }>;
 };
@@ -161,3 +176,17 @@ export type PatchApiGuestsRequestsByUserIdResponses = {
 };
 
 export type PatchApiGuestsRequestsByUserIdResponse = PatchApiGuestsRequestsByUserIdResponses[keyof PatchApiGuestsRequestsByUserIdResponses];
+
+export type PostApiWebhookData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/webhook/';
+};
+
+export type PostApiWebhookResponses = {
+    /**
+     * Default Response
+     */
+    200: unknown;
+};
