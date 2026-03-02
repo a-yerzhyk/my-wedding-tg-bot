@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGalleryUploadData, PostApiGalleryUploadResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses } from './types.gen';
+import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -29,16 +29,6 @@ export const postApiAuthTelegram = <ThrowOnError extends boolean = false>(option
         'Content-Type': 'application/json',
         ...options.headers
     }
-});
-
-/**
- * Upload a photo (confirmed guests only)
- */
-export const postApiGalleryUpload = <ThrowOnError extends boolean = false>(options?: Options<PostApiGalleryUploadData, ThrowOnError>) => (options?.client ?? client).post<PostApiGalleryUploadResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/api/gallery/upload',
-    ...options
 });
 
 /**

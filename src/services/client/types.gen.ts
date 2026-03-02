@@ -29,25 +29,6 @@ export type PostApiAuthTelegramResponses = {
 
 export type PostApiAuthTelegramResponse = PostApiAuthTelegramResponses[keyof PostApiAuthTelegramResponses];
 
-export type PostApiGalleryUploadData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/gallery/upload';
-};
-
-export type PostApiGalleryUploadResponses = {
-    /**
-     * Default Response
-     */
-    201: {
-        url: string;
-        thumbnailUrl: string;
-    };
-};
-
-export type PostApiGalleryUploadResponse = PostApiGalleryUploadResponses[keyof PostApiGalleryUploadResponses];
-
 export type GetApiGalleryData = {
     body?: never;
     path?: never;
