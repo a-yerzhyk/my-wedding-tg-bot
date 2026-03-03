@@ -60,6 +60,16 @@ onMounted(() => {
         </svg>
         <span>Фото</span>
       </RouterLink>
+      <!-- <RouterLink
+        :to="'/test'"
+        class="menu__item"
+        active-class="menu__item_active"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A49A" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        </svg>
+        <span>Test</span>
+      </RouterLink> -->
     </div>
   </div>
 </template>
