@@ -56,7 +56,7 @@ onMounted(() => {
 
 <template>
   <div class="admin-view">
-    <div class="menu-view__content">
+    <div class="menu-view__container">
       <div class="menu-view__header">
         <p class="menu-view__subheading text-secondary">Панель адміна</p>
         <p class="menu-view__heading text-header">Список запитів</p>

@@ -3,34 +3,36 @@
 
 <template>
   <div class="wishlist-view">
-    <div class="menu-view__content">
+    <div class="menu-view__container">
       <div class="menu-view__header">
         <p class="menu-view__subheading text-secondary">можливо вам знадобиться</p>
         <p class="menu-view__heading text-header">Вішлист</p>
       </div>
 
-      <div class="wishlist-view__list">
-        <div class="wishlist-view__item">
-          <div class="wishlist-view__item-icon">
-            🌸
+      <div class="menu-view__content">
+        <div class="wishlist-view__list">
+          <div class="wishlist-view__item">
+            <div class="wishlist-view__item-icon">
+              🌸
+            </div>
+            <div class="wishlist-view__item-details text-primary">
+              Не потрібно букетів, з якими невідомо що далі робити😅
+              <br>
+              Принеси одну квітку, з якої ми зробимо один великий букет!
+              <br>
+              <br>
+              <p class="text-secondary text-xs underline">
+                P.S. Без лілій! Вони токсичні для котів
+              </p>
+            </div>
           </div>
-          <div class="wishlist-view__item-details text-primary">
-            Не потрібно букетів, з якими невідомо що далі робити😅
-            <br>
-            Принеси одну квітку, з якої ми зробимо один великий букет!
-            <br>
-            <br>
-            <p class="text-secondary text-xs underline">
-              P.S. Без лілій! Вони токсичні для котів
-            </p>
-          </div>
-        </div>
-        <div class="wishlist-view__item">
-          <div class="wishlist-view__item-icon">
-            🥳
-          </div>
-          <div class="wishlist-view__item-details text-primary">
-            А найголовнішим подарунком для нас буде ваша участь, святковий настрій та хороший апетит!
+          <div class="wishlist-view__item">
+            <div class="wishlist-view__item-icon">
+              🥳
+            </div>
+            <div class="wishlist-view__item-details text-primary">
+              А найголовнішим подарунком для нас буде ваша участь, святковий настрій та хороший апетит!
+            </div>
           </div>
         </div>
       </div>
@@ -43,7 +45,6 @@
   background: var(--background-4);
 
   &__list {
-    padding: 8px 16px 16px;
     display: flex;
     flex-direction: column;
     row-gap: 12px;

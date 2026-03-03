@@ -20,7 +20,7 @@ function sendRequest() {
 
 <template>
   <div class="home-view">
-    <div class="menu-view__content">
+    <div class="menu-view__container">
       <RouterLink v-if="userStore.isAdmin" to="/admin-panel" class="absolute top-inset-safe right-2 p-1 border border-rose rounded text-secondary text-xs">
         Адмінка
       </RouterLink>
@@ -88,7 +88,7 @@ function sendRequest() {
   background: var(--background-1);
   text-align: center;
 
-  .menu-view__content {
+  .menu-view__container {
     display: flex;
     flex-direction: column;
     align-items: center;

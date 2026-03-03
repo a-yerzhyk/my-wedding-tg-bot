@@ -25,13 +25,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="photos-view">
-    <div class="menu-view__content ">
+  <div class="galleries-view">
+    <div class="menu-view__container">
       <div class="menu-view__header" v-if="userStore.isAdmin">
-        <p class="menu-view__subheading text-secondary">хайлайти</p>
+        <p class="menu-view__subheading text-secondary">завантажуй свої фото у бот</p>
         <p class="menu-view__heading text-header">Галерея</p>
       </div>
-      <div class="space-y-3 p-4 pt-2" v-if="userStore.isAdmin">
+      <div class="menu-view__content space-y-3" v-if="userStore.isAdmin">
         <GalleryItem
           v-for="gallery in galleries"
           :key="gallery.id"
@@ -75,10 +75,10 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-.photos-view {
+.galleries-view {
   background: var(--background-3);
 
-  .menu-view__content {
+  .menu-view__container {
     font-size: 1.5rem;
   }
 }

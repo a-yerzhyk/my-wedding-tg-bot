@@ -3,73 +3,71 @@
 
 <template>
   <div class="details-view">
-    <div class="menu-view__content">
+    <div class="menu-view__container">
       <div class="menu-view__header">
         <p class="menu-view__subheading text-secondary">Зарезервуйте дату</p>
         <p class="menu-view__heading text-header">Інформація</p>
       </div>
 
-      <div class="details-view__list">
-        <div class="details-view__item">
-          <div class="details-view__item-icon">
-            📅
+      <div class="menu-view__content">
+        <div class="details-view__list">
+          <div class="details-view__item">
+            <div class="details-view__item-icon">
+              📅
+            </div>
+            <div class="details-view__item-body">
+              <p class="details-view__item-title text-secondary">
+                Дата та час
+              </p>
+              <p class="details-view__item-info text-header">
+                Субота, 21 березня 2026
+              </p>
+              <p class="details-view__item-details text-primary">
+                · Аперитив: 14:00<br/>
+                · Банкет: 15:00
+              </p>
+            </div>
           </div>
-          <div class="details-view__item-body">
-            <p class="details-view__item-title text-secondary">
-              Дата та час
-            </p>
-            <p class="details-view__item-info text-header">
-              Субота, 21 березня 2026
-            </p>
-            <p class="details-view__item-details text-primary">
-              · Аперитив: 14:00<br/>
-              · Банкет: 15:00
-            </p>
+  
+          <div class="details-view__item">
+            <div class="details-view__item-icon">
+              📍
+            </div>
+            <div class="details-view__item-body">
+              <p class="details-view__item-title text-secondary">
+                Місце проведення
+              </p>
+              <p class="details-view__item-info text-header">
+                Сafe Charlotte
+              </p>
+              <p class="details-view__item-details text-primary">
+                Oleksandra Konysʹkoho 55, Kyiv, Ukraine
+              </p>
+            </div>
           </div>
+  
+          <div class="details-view__item">
+            <div class="details-view__item-icon">
+              💃
+            </div>
+            <div class="details-view__item-body">
+              <p class="details-view__item-title text-secondary">
+                Дрес-код
+              </p>
+              <p class="details-view__item-info text-header">
+                Святковий
+              </p>
+              <p class="details-view__item-details text-primary">
+                Одягнися чисто і святково. Жодних тематичних кольорів, лише краса та комфорт
+              </p>
+            </div>
+          </div>
+  
+          <a href="https://maps.app.goo.gl/yrZmJ9LNEyVRReXJ8" target="_blank" class="map-placeholder">
+            📍Відкрити у картах
+          </a>
         </div>
       </div>
-
-      <div class="details-view__list">
-        <div class="details-view__item">
-          <div class="details-view__item-icon">
-            📍
-          </div>
-          <div class="details-view__item-body">
-            <p class="details-view__item-title text-secondary">
-              Місце проведення
-            </p>
-            <p class="details-view__item-info text-header">
-              Сafe Charlotte
-            </p>
-            <p class="details-view__item-details text-primary">
-              Oleksandra Konysʹkoho 55, Kyiv, Ukraine
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="details-view__list">
-        <div class="details-view__item">
-          <div class="details-view__item-icon">
-            💃
-          </div>
-          <div class="details-view__item-body">
-            <p class="details-view__item-title text-secondary">
-              Дрес-код
-            </p>
-            <p class="details-view__item-info text-header">
-              Святковий
-            </p>
-            <p class="details-view__item-details text-primary">
-              Одягнися чисто і святково. Жодних тематичних кольорів, лише краса та комфорт
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <a href="https://maps.app.goo.gl/yrZmJ9LNEyVRReXJ8" target="_blank" class="map-placeholder">
-        📍Відкрити у картах
-      </a>
     </div>
   </div>
 </template>
@@ -79,7 +77,6 @@
   background: var(--background-2);
 
   &__list {
-    padding: 8px 16px 16px;
     display: flex;
     flex-direction: column;
     row-gap: 12px;
@@ -128,7 +125,6 @@
   }
   
   .map-placeholder {
-    margin: 0 16px;
     border-radius: 16px;
     height: 100px;
     background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
