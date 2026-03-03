@@ -1,5 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
+  galleryId: string;
   name: string;
   username?: string;
   avatarUrl?: string;
@@ -14,7 +15,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <div class="gallery-item">
+  <RouterLink :to="{ name: 'gallery', params: { id: galleryId }}"  class="gallery-item">
     <div class="gallery-item__header">
       <img :src="avatarUrl" alt="Avatar" class="gallery-item__avatar">
       <div class="gallery-item__user">
@@ -24,7 +25,7 @@ withDefaults(defineProps<{
         </div>
       </div>
       <div class="text-primary text-sm">
-        {{ photoCount }}
+        {{ photoCount }}/50
       </div>
     </div>
     <div class="gallery-item__divider"></div>
@@ -37,7 +38,7 @@ withDefaults(defineProps<{
         alt="Preview"
       />
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style lang="scss" scoped>

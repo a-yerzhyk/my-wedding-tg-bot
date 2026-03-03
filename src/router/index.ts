@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DetailsView from '../views/DetailsView.vue'
 import WishlistView from '../views/WishlistView.vue'
-import PhotosView from '../views/PhotosView.vue'
+import GalleriesView from '../views/GalleriesView.vue'
+import GalleryView from '../views/GalleryView.vue'
 import AdminView from '../views/AdminView.vue'
 
 const router = createRouter({
@@ -10,27 +11,32 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: HomeView
     },
     {
       path: '/details',
-      name: 'Details',
+      name: 'details',
       component: DetailsView
     },
     {
       path: '/wishlist',
-      name: 'Wishlist',
+      name: 'wishlist',
       component: WishlistView
     },
     {
-      path: '/photos',
-      name: 'Photos',
-      component: PhotosView
+      path: '/galleries',
+      name: 'galleries',
+      component: GalleriesView,
+    },
+    {
+      path: '/galleries/:id',
+      name: 'gallery',
+      component: GalleryView,
     },
     {
       path: '/admin-panel',
-      name: 'AdminPanel',
+      name: 'admin',
       component: AdminView
     },
   ],

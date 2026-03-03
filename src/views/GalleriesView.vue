@@ -35,6 +35,7 @@ onMounted(async () => {
         <GalleryItem
           v-for="gallery in galleries"
           :key="gallery.id"
+          :galleryId="gallery.id"
           :avatarUrl="gallery.user.avatarUrl"
           :name="gallery.user.firstName"
           :username="gallery.user.username"

@@ -51,7 +51,7 @@ onMounted(() => {
         <span>Вішлист</span>
       </RouterLink>
       <RouterLink
-        :to="'/photos'"
+        :to="'/galleries'"
         class="menu__item"
         active-class="menu__item_active"
       >
