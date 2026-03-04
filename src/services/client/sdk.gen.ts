@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses, PostApiWebhookData, PostApiWebhookResponses } from './types.gen';
+import type { DeleteApiGalleryByGalleryIdData, DeleteApiGalleryByGalleryIdHardData, DeleteApiGalleryByGalleryIdHardResponses, DeleteApiGalleryByGalleryIdResponses, DeleteApiGalleryMediaByMediaIdData, DeleteApiGalleryMediaByMediaIdHardData, DeleteApiGalleryMediaByMediaIdHardResponses, DeleteApiGalleryMediaByMediaIdResponses, GetApiGalleryByGalleryIdData, GetApiGalleryByGalleryIdResponses, GetApiGalleryData, GetApiGalleryResponses, GetApiGuestsRequestsData, GetApiGuestsRequestsResponses, PatchApiGuestsRequestsByUserIdData, PatchApiGuestsRequestsByUserIdResponses, PostApiAuthTelegramData, PostApiAuthTelegramResponses, PostApiGuestsRequestData, PostApiGuestsRequestResponses, PostApiWebhookData, PostApiWebhookResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -42,6 +42,16 @@ export const getApiGallery = <ThrowOnError extends boolean = false>(options?: Op
 });
 
 /**
+ * Soft delete a gallery (owner only)
+ */
+export const deleteApiGalleryByGalleryId = <ThrowOnError extends boolean = false>(options: Options<DeleteApiGalleryByGalleryIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiGalleryByGalleryIdResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/gallery/{galleryId}',
+    ...options
+});
+
+/**
  * Get a specific guest gallery with all photos
  */
 export const getApiGalleryByGalleryId = <ThrowOnError extends boolean = false>(options: Options<GetApiGalleryByGalleryIdData, ThrowOnError>) => (options.client ?? client).get<GetApiGalleryByGalleryIdResponses, unknown, ThrowOnError>({
@@ -52,12 +62,32 @@ export const getApiGalleryByGalleryId = <ThrowOnError extends boolean = false>(o
 });
 
 /**
- * Delete a photo (admin or owner)
+ * Soft delete a photo (owner only)
  */
 export const deleteApiGalleryMediaByMediaId = <ThrowOnError extends boolean = false>(options: Options<DeleteApiGalleryMediaByMediaIdData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiGalleryMediaByMediaIdResponses, unknown, ThrowOnError>({
     responseType: 'json',
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/gallery/media/{mediaId}',
+    ...options
+});
+
+/**
+ * Hard delete a photo (admin only)
+ */
+export const deleteApiGalleryMediaByMediaIdHard = <ThrowOnError extends boolean = false>(options: Options<DeleteApiGalleryMediaByMediaIdHardData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiGalleryMediaByMediaIdHardResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/gallery/media/{mediaId}/hard',
+    ...options
+});
+
+/**
+ * Hard delete a gallery (admin only)
+ */
+export const deleteApiGalleryByGalleryIdHard = <ThrowOnError extends boolean = false>(options: Options<DeleteApiGalleryByGalleryIdHardData, ThrowOnError>) => (options.client ?? client).delete<DeleteApiGalleryByGalleryIdHardResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/gallery/{galleryId}/hard',
     ...options
 });
 

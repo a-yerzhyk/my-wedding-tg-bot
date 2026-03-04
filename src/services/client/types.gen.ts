@@ -59,6 +59,26 @@ export type GetApiGalleryResponses = {
 
 export type GetApiGalleryResponse = GetApiGalleryResponses[keyof GetApiGalleryResponses];
 
+export type DeleteApiGalleryByGalleryIdData = {
+    body?: never;
+    path: {
+        galleryId: string;
+    };
+    query?: never;
+    url: '/api/gallery/{galleryId}';
+};
+
+export type DeleteApiGalleryByGalleryIdResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message: string;
+    };
+};
+
+export type DeleteApiGalleryByGalleryIdResponse = DeleteApiGalleryByGalleryIdResponses[keyof DeleteApiGalleryByGalleryIdResponses];
+
 export type GetApiGalleryByGalleryIdData = {
     body?: never;
     path: {
@@ -112,6 +132,46 @@ export type DeleteApiGalleryMediaByMediaIdResponses = {
 };
 
 export type DeleteApiGalleryMediaByMediaIdResponse = DeleteApiGalleryMediaByMediaIdResponses[keyof DeleteApiGalleryMediaByMediaIdResponses];
+
+export type DeleteApiGalleryMediaByMediaIdHardData = {
+    body?: never;
+    path: {
+        mediaId: string;
+    };
+    query?: never;
+    url: '/api/gallery/media/{mediaId}/hard';
+};
+
+export type DeleteApiGalleryMediaByMediaIdHardResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message: string;
+    };
+};
+
+export type DeleteApiGalleryMediaByMediaIdHardResponse = DeleteApiGalleryMediaByMediaIdHardResponses[keyof DeleteApiGalleryMediaByMediaIdHardResponses];
+
+export type DeleteApiGalleryByGalleryIdHardData = {
+    body?: never;
+    path: {
+        galleryId: string;
+    };
+    query?: never;
+    url: '/api/gallery/{galleryId}/hard';
+};
+
+export type DeleteApiGalleryByGalleryIdHardResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message: string;
+    };
+};
+
+export type DeleteApiGalleryByGalleryIdHardResponse = DeleteApiGalleryByGalleryIdHardResponses[keyof DeleteApiGalleryByGalleryIdHardResponses];
 
 export type PostApiGuestsRequestData = {
     body?: never;
