@@ -1,16 +1,32 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import type { Photo } from '@/services/types'
+import { useUserStore } from '@/stores/user';
 
 const props = defineProps<{
+  isOwner: boolean
   photos: Photo[]
   startIndex: number
   open: boolean
 }>()
 
 const emit = defineEmits<{
-  close: []
+  close: [],
+  softDelete: [string],
+  hardDelete: [string],
 }>()
+
+const user = useUserStore()
+
+const softDelete = async (mediaId: string) => {
+  close()
+  emit('softDelete', mediaId)
+}
+
+const hardDelete = async (mediaId: string) => {
+  close()
+  emit('hardDelete', mediaId)
+}
 
 const activeIndex = ref(props.startIndex)
 const touchStartX = ref(0)
@@ -118,8 +134,55 @@ function onTouchEnd() {
           opacity: isClosing ? 0 : Math.max(0, 1 - Math.abs(touchDeltaY) / 300)
         }"
       ></div>
-
-      <button class="lightbox__close" @click="close">✕</button>
+      <div class="lightbox__controls lightbox__controls_left flex gap-2">
+        <!-- hard delete -->
+        <svg
+          v-if="user.isAdmin"
+          @click="() => hardDelete(photos[activeIndex]?.id || '')"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 44 44"
+          width="44"
+          height="44"
+        >
+          <circle cx="22" cy="22" r="21" fill="rgba(250,246,242,0.92)" stroke="#D4927E" stroke-width="1.2"/>
+          <rect x="14" y="18" width="16" height="13" rx="2" fill="none" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="12" y1="18" x2="32" y2="18" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M19,18 v-2 a1,1 0 0 1 1-1 h4 a1,1 0 0 1 1,1 v2" fill="none" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="18" y1="21" x2="26" y2="29" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="26" y1="21" x2="18" y2="29" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="lightbox__controls flex gap-2">
+        <!-- soft delete -->
+        <svg
+          v-if="user.isAdmin || isOwner"
+          @click="() => softDelete(photos[activeIndex]?.id || '')"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 44 44"
+          width="44"
+          height="44"
+        >
+          <circle cx="22" cy="22" r="21" fill="rgba(250,246,242,0.92)" stroke="#C9A49A" stroke-width="1.2"/>
+          <rect x="14" y="18" width="16" height="13" rx="2" fill="none" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="12" y1="18" x2="32" y2="18" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M19,18 v-2 a1,1 0 0 1 1-1 h4 a1,1 0 0 1 1,1 v2" fill="none" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="19" y1="21" x2="19" y2="28" stroke="#C0614A" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+          <line x1="22" y1="21" x2="22" y2="28" stroke="#C0614A" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+          <line x1="25" y1="21" x2="25" y2="28" stroke="#C0614A" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+        </svg>
+        <!-- close -->
+        <svg
+          @click="close"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 44 44"
+          width="44"
+          height="44"
+        >
+          <circle cx="22" cy="22" r="21" fill="rgba(250,246,242,0.92)" stroke="#C9A49A" stroke-width="1.2"/>
+          <line x1="15" y1="15" x2="29" y2="29" stroke="#8B6B61" stroke-width="2" stroke-linecap="round"/>
+          <line x1="29" y1="15" x2="15" y2="29" stroke="#8B6B61" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
 
       <div class="lightbox__counter">
         {{ activeIndex + 1 }} / {{ photos.length }}
@@ -144,14 +207,30 @@ function onTouchEnd() {
         </Transition>
       </div>
 
-      <button
+      <!-- prev -->
+      <svg
         class="lightbox__arrow lightbox__arrow--prev"
         @click="prev"
-      >‹</button>
-      <button
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 44 44"
+        width="44"
+        height="44"
+      >
+        <circle cx="22" cy="22" r="21" fill="rgba(250,246,242,0.92)" stroke="#C9A49A" stroke-width="1.2"/>
+        <polyline points="25,13 16,22 25,31" fill="none" stroke="#8B6B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <!-- next -->
+       <svg
         class="lightbox__arrow lightbox__arrow--next"
         @click="next"
-      >›</button>
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 44 44"
+        width="44"
+        height="44"
+      >
+        <circle cx="22" cy="22" r="21" fill="rgba(250,246,242,0.92)" stroke="#C9A49A" stroke-width="1.2"/>
+        <polyline points="19,13 28,22 19,31" fill="none" stroke="#8B6B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
 
       <div class="lightbox__dots" v-if="photos.length <= 20">
         <span
@@ -183,25 +262,18 @@ function onTouchEnd() {
     z-index: 0;
   }
 
-  &__close {
+  &__controls {
     position: absolute;
     top: var(--inset-top);
     right: 16px;
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: white;
-    font-size: 1.25rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
+    gap: 8px;
+    z-index: 10;
 
-    &:hover { background: rgba(255, 255, 255, 0.25) }
+    &_left {
+      left: 16px;
+      right: auto;
+    }
   }
 
   &__counter {
@@ -238,23 +310,11 @@ function onTouchEnd() {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: white;
-    font-size: 2rem;
     width: 48px;
     height: 48px;
-    border-radius: 50%;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    padding: 0 0 2px 0;  // ← slight nudge down to optically center ‹ ›
     z-index: 10;
-    transition: background 0.2s;
 
-    &:hover { background: rgba(255, 255, 255, 0.25) }
     &--prev { left: 12px }
     &--next { right: 12px }
   }

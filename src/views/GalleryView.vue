@@ -6,6 +6,10 @@ import type { GalleryDetail } from '@/services/types'
 import { useRoute, useRouter } from 'vue-router'
 import { backButton } from '@tma.js/sdk'
 import VLightbox from '@/components/VLightbox.vue'
+import {
+  deleteApiGalleryMediaByMediaId,
+  deleteApiGalleryMediaByMediaIdHard
+} from '@/services/client';
 
 const route = useRoute()
 const router = useRouter()
@@ -22,6 +26,24 @@ async function loadGallery(galleryId: string) {
 function openLightbox(index: number) {
   lightboxIndex.value = index
   lightboxOpen.value = true
+}
+
+function onPhotoDeleted(mediaId: string) {
+  if (gallery.value) {
+    gallery.value.photos = gallery.value.photos.filter(photo => photo.id !== mediaId)
+  }
+}
+
+const softDelete = async (mediaId: string) => {
+  deleteApiGalleryMediaByMediaId({ path: { mediaId } }).then(() => {
+    onPhotoDeleted(mediaId)
+  })
+}
+
+const hardDelete = async (mediaId: string) => {
+  deleteApiGalleryMediaByMediaIdHard({ path: { mediaId } }).then(() => {
+    onPhotoDeleted(mediaId)
+  })
 }
 
 onMounted(async () => {
@@ -62,10 +84,13 @@ onUnmounted(() => {
 
     <VLightbox
       v-if="gallery"
+      :is-owner="gallery.isOwner"
       :photos="gallery.photos"
       :start-index="lightboxIndex"
       :open="lightboxOpen"
       @close="lightboxOpen = false"
+      @soft-delete="softDelete"
+      @hard-delete="hardDelete"
     />
   </div>
 </template>

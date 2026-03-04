@@ -13,6 +13,7 @@ const lightboxIndex = ref(0)
 async function loadGallery() {
   gallery.value = {
     id: "[object Object]",
+    isOwner: true,
     photoCount: 7,
     photos: [
       {
@@ -508,6 +509,7 @@ onUnmounted(() => {
 
     <VLightbox
       v-if="gallery"
+      :is-owner="gallery.isOwner"
       :photos="gallery.photos"
       :start-index="lightboxIndex"
       :open="lightboxOpen"
