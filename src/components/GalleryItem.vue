@@ -89,14 +89,14 @@ withDefaults(defineProps<{
   }
 
   &__previews {
-    display: flex;
-    height: 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding: 4px 0;
   }
 
   &__preview {
-    flex: 1;
+    width: 100%;
     height: 100%;
     border-radius: 8px;
     object-fit: cover;
