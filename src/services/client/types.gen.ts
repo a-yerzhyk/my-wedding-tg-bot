@@ -94,6 +94,7 @@ export type GetApiGalleryByGalleryIdResponses = {
      */
     200: {
         id: string;
+        isOwner: boolean;
         photoCount: number;
         photos: Array<{
             id: string;
