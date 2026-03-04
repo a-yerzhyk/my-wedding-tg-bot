@@ -18,7 +18,7 @@ async function loadGalleries() {
 }
 
 onMounted(async () => {
-  if (userStore.isAdmin) {
+  if (userStore.isApproved) {
     await loadGalleries()
   }
 })
@@ -27,11 +27,11 @@ onMounted(async () => {
 <template>
   <div class="galleries-view">
     <div class="menu-view__container">
-      <div class="menu-view__header" v-if="userStore.isAdmin">
+      <div class="menu-view__header" v-if="userStore.isApproved">
         <p class="menu-view__subheading text-secondary">завантажуй свої фото у бот</p>
         <p class="menu-view__heading text-header">Галерея</p>
       </div>
-      <div class="menu-view__content space-y-3" v-if="userStore.isAdmin">
+      <div class="menu-view__content space-y-3" v-if="userStore.isApproved && galleries.length > 0">
         <GalleryItem
           v-for="gallery in galleries"
           :key="gallery.id"
@@ -43,12 +43,15 @@ onMounted(async () => {
           :photoCount="gallery.photoCount"
         />
       </div>
-      <div v-if="!userStore.isAdmin" class="w-full h-full flex justify-center items-center pl-[16px] pr-[16px]">
+      <p 
+        v-else-if="userStore.isApproved"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-header w-full text-center"
+      >
+        Галерея наразі порожня
+      </p>
+      <div v-if="!userStore.isApproved" class="w-full h-full flex justify-center items-center pl-[16px] pr-[16px]">
         <Transition name="fade" mode="out-in">
-          <div class="text-header" v-if="!userStore.isAdmin && userStore.isApproved">
-            У розробці...
-          </div>
-          <div class="text-header text-center" v-else-if="userStore.isPending">
+          <div class="text-header text-center" v-if="userStore.isPending">
             Ваша заявка розглядається.<br/>
             Для пришвидшення процесу розгляду зверніться до винуватців цього дійства :)<br/>
             <div class="flex justify-center gap-2 text-lg">
@@ -63,7 +66,7 @@ onMounted(async () => {
           <p class="text-header" v-else-if="userStore.isDenied">
             Ваша заявка відхилена
           </p>
-          <div class="flex flex-col items-center text-header text-xl gap-2" v-else-if="!userStore.isApproved">
+          <div class="flex flex-col items-center text-header text-xl gap-2" v-else>
             <p class="text-center">Для перегляду та завантаження фото вам потрібно відправити заявку</p>
             <VButton type="success" @click="userStore.submitGuestRequest">
               Прийняти запрошення
