@@ -28,3 +28,13 @@
     padding: 6px 12px;
   }
 }
+
+.simple-button {
+  padding: 4px;
+  border: 1px solid var(--dusty);
+  border-radius: 0.25rem;
+  font-family: var(--font-secondary);
+  color: var(--dusty);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
