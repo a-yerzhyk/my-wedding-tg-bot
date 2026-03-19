@@ -15,6 +15,7 @@ const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 const gallery = ref<GalleryDetail | null>(null)
+const isLoading = ref(false)
 const lightboxOpen = ref(false)
 const lightboxIndex = ref(0)
 
@@ -32,8 +33,13 @@ function formatDuration(seconds: number): string {
 }
 
 async function loadGallery(galleryId: string) {
-  const res = await getApiGalleryByGalleryId({ path: { galleryId } })
-  if (res.data) gallery.value = res.data
+  isLoading.value = true
+  try {
+    const res = await getApiGalleryByGalleryId({ path: { galleryId } })
+    if (res.data) gallery.value = res.data
+  } finally {
+    isLoading.value = false
+  }
 }
 
 function openLightbox(index: number) {
@@ -76,7 +82,10 @@ onUnmounted(() => {
 
 <template>
   <div class="gallery-view">
-    <div class="menu-view__container" v-if="gallery">
+    <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="spinner"></div>
+    </div>
+    <div class="menu-view__container" v-else-if="gallery">
       <div class="menu-view__header">
         <p class="menu-view__subheading text-secondary">галерея гостя</p>
         <p v-if="gallery.user" class="menu-view__heading text-header">

@@ -10,11 +10,17 @@ import GalleryItem from '@/components/GalleryItem.vue';
 
 const userStore = useUserStore()
 const galleries = ref<Gallery[]>([])
+const isLoading = ref(false)
 
 async function loadGalleries() {
-  const res = await getApiGallery()
-  if (res.data) {
-    galleries.value = res.data
+  isLoading.value = true
+  try {
+    const res = await getApiGallery()
+    if (res.data) {
+      galleries.value = res.data
+    }
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -34,7 +40,10 @@ onMounted(async () => {
           <p class="text-header">Галерея</p>
         </div>
       </div>
-      <div class="menu-view__content space-y-3" v-if="userStore.isApproved && galleries.length > 0">
+      <div v-if="userStore.isApproved && isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="spinner"></div>
+      </div>
+      <div class="menu-view__content space-y-3" v-else-if="userStore.isApproved && galleries.length > 0">
         <GalleryItem
           v-for="gallery in galleries"
           :key="gallery.id"
@@ -47,7 +56,7 @@ onMounted(async () => {
           :videoCount="gallery.videoCount"
         />
       </div>
-      <p 
+      <p
         v-else-if="userStore.isApproved"
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-header w-full text-center"
       >
@@ -90,5 +99,6 @@ onMounted(async () => {
   .menu-view__container {
     font-size: 1.5rem;
   }
+
 }
 </style>
