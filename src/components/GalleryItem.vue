@@ -6,11 +6,13 @@ withDefaults(defineProps<{
   avatarUrl?: string;
   previews: string[];
   photoCount: number;
+  videoCount?: number;
 }>(), {
   avatarUrl: '',
   name: '',
   username: '',
-  previews: () => []
+  previews: () => [],
+  videoCount: 0,
 })
 </script>
 
@@ -25,7 +27,7 @@ withDefaults(defineProps<{
         </div>
       </div>
       <div class="text-primary text-sm">
-        {{ photoCount }}/50
+        {{ photoCount }}📷<template v-if="videoCount"> {{ videoCount }}🎬</template>
       </div>
     </div>
     <div class="gallery-item__divider"></div>

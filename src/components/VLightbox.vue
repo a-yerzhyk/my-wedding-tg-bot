@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { Photo } from '@/services/types'
+import type { MediaItem } from '@/services/types'
 import { useUserStore } from '@/stores/user';
 
 const props = defineProps<{
   isOwner: boolean
-  photos: Photo[]
+  media: MediaItem[]
   startIndex: number
   open: boolean
 }>()
@@ -57,15 +57,22 @@ function close() {
 
 const transitionName = ref('slide-left')
 
+function pauseCurrentVideo() {
+  const video = document.querySelector<HTMLVideoElement>('.lightbox__stage video')
+  video?.pause()
+}
+
 function prev() {
+  pauseCurrentVideo()
   transitionName.value = 'slide-right'
-  activeIndex.value = (activeIndex.value - 1 + props.photos.length) % props.photos.length
+  activeIndex.value = (activeIndex.value - 1 + props.media.length) % props.media.length
   touchDeltaX.value = 0
 }
 
 function next() {
+  pauseCurrentVideo()
   transitionName.value = 'slide-left'
-  activeIndex.value = (activeIndex.value + 1) % props.photos.length
+  activeIndex.value = (activeIndex.value + 1) % props.media.length
   touchDeltaX.value = 0
 }
 
@@ -138,7 +145,7 @@ function onTouchEnd() {
         <!-- hard delete -->
         <svg
           v-if="user.isAdmin"
-          @click="() => hardDelete(photos[activeIndex]?.id || '')"
+          @click="() => hardDelete(media[activeIndex]?.id || '')"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 44 44"
           width="44"
@@ -155,8 +162,8 @@ function onTouchEnd() {
       <div class="lightbox__controls flex gap-2">
         <!-- soft delete -->
         <svg
-          v-if="user.isAdmin || isOwner"
-          @click="() => softDelete(photos[activeIndex]?.id || '')"
+          v-if="(user.isAdmin || isOwner) && !media[activeIndex]?.deletedAt"
+          @click="() => softDelete(media[activeIndex]?.id || '')"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 44 44"
           width="44"
@@ -185,7 +192,7 @@ function onTouchEnd() {
       </div>
 
       <div class="lightbox__counter">
-        {{ activeIndex + 1 }} / {{ photos.length }}
+        {{ activeIndex + 1 }} / {{ media.length }}
       </div>
 
       <div
@@ -196,9 +203,24 @@ function onTouchEnd() {
       >
         <Transition :name="transitionName">
           <img
-            :key="activeIndex"
+            v-if="media[activeIndex]?.mediaType === 'photo'"
+            :key="'photo-' + activeIndex"
             class="lightbox__image"
-            :src="photos[activeIndex]?.url"
+            :src="media[activeIndex]?.url"
+            :style="{
+              transform: isSwiping || isClosing ? `translate(${touchDeltaX}px, ${touchDeltaY}px) scale(${isClosing ? 0.7 : 1})` : '',
+              opacity: isClosing ? 0 : 'none',
+            }"
+          />
+          <video
+            v-else
+            :key="'video-' + activeIndex"
+            class="lightbox__video"
+            :src="media[activeIndex]?.url"
+            autoplay
+            muted
+            playsinline
+            controls
             :style="{
               transform: isSwiping || isClosing ? `translate(${touchDeltaX}px, ${touchDeltaY}px) scale(${isClosing ? 0.7 : 1})` : '',
               opacity: isClosing ? 0 : 'none',
@@ -232,9 +254,9 @@ function onTouchEnd() {
         <polyline points="19,13 28,22 19,31" fill="none" stroke="#8B6B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
-      <div class="lightbox__dots" v-if="photos.length <= 20">
+      <div class="lightbox__dots" v-if="media.length <= 20">
         <span
-          v-for="(_, i) in photos"
+          v-for="(_, i) in media"
           :key="i"
           class="lightbox__dot"
           :class="{ 'lightbox__dot--active': i === activeIndex }"
@@ -297,7 +319,8 @@ function onTouchEnd() {
     z-index: 1;
   }
 
-  &__image {
+  &__image,
+  &__video {
     max-width: 100%;
     max-height: 100vh;
     object-fit: contain;
@@ -344,7 +367,8 @@ function onTouchEnd() {
   }
 }
 
-.lightbox__image {
+.lightbox__image,
+.lightbox__video {
   max-width: 100%;
   max-height: 100vh;
   object-fit: contain;
@@ -355,7 +379,8 @@ function onTouchEnd() {
 }
 
 // Disable transition while finger is on screen
-.lightbox__stage--swiping .lightbox__image {
+.lightbox__stage--swiping .lightbox__image,
+.lightbox__stage--swiping .lightbox__video {
   transition: none;
 }
 

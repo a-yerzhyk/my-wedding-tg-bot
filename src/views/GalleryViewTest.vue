@@ -461,6 +461,7 @@ async function loadGallery() {
         url: "https://res.cloudinary.com/dffhljzre/image/upload/v1772489189/wedding/974334818/vyxfruwd5ctxwipww9uw.jpg"
       },
     ],
+    videos: [],
     user: {
       avatarUrl: "https://t.me/i/userpic/320/MkkkXEePjvcMwZAjP9aJmNTJJQeyPiGRbJo1To3Ph5s.svg",
       firstName: "Андрій",
@@ -510,7 +511,7 @@ onUnmounted(() => {
     <VLightbox
       v-if="gallery"
       :is-owner="gallery.isOwner"
-      :photos="gallery.photos"
+      :media="gallery.photos.map(p => ({ ...p, mediaType: 'photo' as const }))"
       :start-index="lightboxIndex"
       :open="lightboxOpen"
       @close="lightboxOpen = false"

@@ -41,6 +41,7 @@ onMounted(async () => {
           :username="gallery.user.username"
           :previews="gallery.previews"
           :photoCount="gallery.photoCount"
+          :videoCount="gallery.videoCount"
         />
       </div>
       <p 

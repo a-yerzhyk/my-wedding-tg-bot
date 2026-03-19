@@ -45,6 +45,7 @@ export type GetApiGalleryResponses = {
         id: string;
         coverPhotoUrl?: string;
         photoCount: number;
+        videoCount?: number;
         previews: Array<string>;
         isOwner?: boolean;
         user: {
@@ -96,11 +97,22 @@ export type GetApiGalleryByGalleryIdResponses = {
         id: string;
         isOwner: boolean;
         photoCount: number;
+        videoCount?: number;
         photos: Array<{
             id: string;
             url: string;
             thumbnailUrl: string;
             uploadedAt: string;
+            duration?: number | null;
+            deletedAt?: string;
+        }>;
+        videos: Array<{
+            id: string;
+            url: string;
+            thumbnailUrl: string;
+            uploadedAt: string;
+            duration?: number | null;
+            deletedAt?: string;
         }>;
         user?: {
             firstName: string;
@@ -113,6 +125,24 @@ export type GetApiGalleryByGalleryIdResponses = {
 };
 
 export type GetApiGalleryByGalleryIdResponse = GetApiGalleryByGalleryIdResponses[keyof GetApiGalleryByGalleryIdResponses];
+
+export type PostApiGalleryUploadData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/gallery/upload';
+};
+
+export type PostApiGalleryUploadResponses = {
+    /**
+     * Default Response
+     */
+    200: {
+        message: string;
+    };
+};
+
+export type PostApiGalleryUploadResponse = PostApiGalleryUploadResponses[keyof PostApiGalleryUploadResponses];
 
 export type DeleteApiGalleryMediaByMediaIdData = {
     body?: never;

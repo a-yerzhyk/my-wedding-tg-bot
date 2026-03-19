@@ -17,3 +17,5 @@ export type ApprovalStatus = GuestUser['approvalStatus']
 export type Gallery = GetApiGalleryResponse extends Array<infer T> ? T : never
 export type GalleryDetail = GetApiGalleryByGalleryIdResponse
 export type Photo = GalleryDetail['photos'] extends Array<infer T> ? T : never
+export type Video = GalleryDetail['videos'] extends Array<infer T> ? T : never
+export type MediaItem = (Photo | Video) & { mediaType: 'photo' | 'video' }
