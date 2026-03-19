@@ -14,9 +14,7 @@ export async function initSDK() {
   backButton.isSupported() && backButton.mount()
   miniApp.mount()
   viewport.mount().then(() => {
-    viewport.expand()
     viewport.bindCssVars()
-    viewport.isFullscreen()
     if (!isMobile()) {
       viewport.exitFullscreen()
     }
