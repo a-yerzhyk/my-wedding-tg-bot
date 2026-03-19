@@ -26,9 +26,9 @@ const media = computed<MediaItem[]>(() => {
 })
 
 function formatDuration(seconds: number): string {
-  const m = Math.floor(seconds / 60)
-  const s = seconds % 60
-  return `${m}:${s.toString().padStart(2, '0')}`
+  const m = Math.floor(seconds / 60).toString().padStart(2, '0')
+  const s = Math.floor(seconds % 60).toString().padStart(2, '0')
+  return `${m}:${s}`
 }
 
 async function loadGallery(galleryId: string) {
@@ -93,7 +93,6 @@ onUnmounted(() => {
             @click="openLightbox(index)"
           >
             <img :src="item.thumbnailUrl" />
-            <span v-if="item.mediaType === 'video'" class="gallery-view__play">▶</span>
             <span
               v-if="item.mediaType === 'video' && item.duration"
               class="gallery-view__duration"
@@ -162,10 +161,12 @@ onUnmounted(() => {
   &__duration {
     position: absolute;
     bottom: 4px;
-    right: 5px;
+    right: 3px;
+    background-color: #000000;
+    padding: 2px 4px 3px;
+    border-radius: 5px;
     font-size: 0.65rem;
     color: white;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     pointer-events: none;
   }
 }
