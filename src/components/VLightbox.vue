@@ -36,11 +36,25 @@ const touchDeltaY = ref(0)
 const isSwiping = ref(false)
 const swipeDirection = ref<'horizontal' | 'vertical' | null>(null)
 const isClosing = ref(false)
+const controlsVisible = ref(false)
+let controlsTimer: ReturnType<typeof setTimeout> | null = null
+
+function showControls() {
+  controlsVisible.value = true
+  if (controlsTimer) clearTimeout(controlsTimer)
+  controlsTimer = setTimeout(() => { controlsVisible.value = false }, 2500)
+}
+
+function hideControls() {
+  if (controlsTimer) clearTimeout(controlsTimer)
+  controlsVisible.value = false
+}
 
 watch(() => props.open, (val) => {
   if (val) {
     activeIndex.value = props.startIndex
     isClosing.value = false
+    controlsVisible.value = false
   }
 })
 
@@ -107,7 +121,10 @@ function onTouchMove(e: TouchEvent) {
 }
 
 function onTouchEnd() {
-  if (swipeDirection.value === 'horizontal') {
+  if (swipeDirection.value === null) {
+    // tap — toggle controls; if already visible, hide immediately
+    controlsVisible.value ? hideControls() : showControls()
+  } else if (swipeDirection.value === 'horizontal') {
     if (Math.abs(touchDeltaX.value) > 60) {
       touchDeltaX.value < 0 ? next() : prev()
     } else {
@@ -131,7 +148,6 @@ function onTouchEnd() {
     <div
       v-if="open"
       class="lightbox"
-      @click.self="close"
       tabindex="0"
     >
       <!-- Background dims as you swipe down -->
@@ -141,7 +157,7 @@ function onTouchEnd() {
           opacity: isClosing ? 0 : Math.max(0, 1 - Math.abs(touchDeltaY) / 300)
         }"
       ></div>
-      <div class="lightbox__controls lightbox__controls_left flex gap-2">
+      <div v-show="controlsVisible" class="lightbox__controls lightbox__controls_left flex gap-2">
         <!-- hard delete -->
         <svg
           v-if="user.isAdmin"
@@ -159,7 +175,7 @@ function onTouchEnd() {
           <line x1="26" y1="21" x2="18" y2="29" stroke="#C0614A" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="lightbox__controls flex gap-2">
+      <div v-show="controlsVisible" class="lightbox__controls flex gap-2">
         <!-- soft delete -->
         <svg
           v-if="(user.isAdmin || isOwner) && !media[activeIndex]?.deletedAt"
@@ -191,7 +207,7 @@ function onTouchEnd() {
         </svg>
       </div>
 
-      <div class="lightbox__counter">
+      <div v-show="controlsVisible" class="lightbox__counter">
         {{ activeIndex + 1 }} / {{ media.length }}
       </div>
 
@@ -218,7 +234,6 @@ function onTouchEnd() {
             class="lightbox__video"
             :src="media[activeIndex]?.url"
             autoplay
-            muted
             playsinline
             controls
             :style="{
@@ -231,6 +246,7 @@ function onTouchEnd() {
 
       <!-- prev -->
       <svg
+        v-show="controlsVisible"
         class="lightbox__arrow lightbox__arrow--prev"
         @click="prev"
         xmlns="http://www.w3.org/2000/svg"
@@ -243,6 +259,7 @@ function onTouchEnd() {
       </svg>
       <!-- next -->
        <svg
+        v-show="controlsVisible"
         class="lightbox__arrow lightbox__arrow--next"
         @click="next"
         xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +271,7 @@ function onTouchEnd() {
         <polyline points="19,13 28,22 19,31" fill="none" stroke="#8B6B61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
-      <div class="lightbox__dots" v-if="media.length <= 20">
+      <div v-show="controlsVisible && media.length <= 20" class="lightbox__dots">
         <span
           v-for="(_, i) in media"
           :key="i"
