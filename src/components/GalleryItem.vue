@@ -27,7 +27,7 @@ withDefaults(defineProps<{
         </div>
       </div>
       <div class="text-primary text-sm">
-        {{ photoCount }}📷<template v-if="videoCount"> {{ videoCount }}🎬</template>
+        {{ photoCount }}📷<template v-if="videoCount">&nbsp;&nbsp;&nbsp;{{ videoCount }}🎬</template>
       </div>
     </div>
     <div class="gallery-item__divider"></div>
