@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import VButton from '@/components/VButton.vue';
+import UploadButton from '@/components/UploadButton.vue';
 import { useUserStore } from '@/stores/user';
 import { openProfile } from '@/services/tma-sdk';
 import { onMounted, ref } from 'vue';
@@ -29,7 +30,9 @@ onMounted(async () => {
     <div class="menu-view__container">
       <div class="menu-view__header" v-if="userStore.isApproved">
         <p class="menu-view__subheading text-secondary">завантажуй свої фото у бот</p>
-        <p class="menu-view__heading text-header">Галерея</p>
+        <div class="menu-view__heading flex items-center justify-between">
+          <p class="text-header">Галерея</p>
+        </div>
       </div>
       <div class="menu-view__content space-y-3" v-if="userStore.isApproved && galleries.length > 0">
         <GalleryItem
@@ -75,6 +78,7 @@ onMounted(async () => {
           </div>
         </Transition>
       </div>
+      <UploadButton v-if="userStore.isApproved" class="absolute bottom-2 right-4" />
     </div>
   </div>
 </template>
