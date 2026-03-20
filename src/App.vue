@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import VToast from './components/VToast.vue';
 
 const isMounted = ref(false)
 
@@ -71,6 +72,7 @@ onMounted(() => {
         <span>Test</span>
       </RouterLink> -->
     </div>
+    <VToast />
   </div>
 </template>
 

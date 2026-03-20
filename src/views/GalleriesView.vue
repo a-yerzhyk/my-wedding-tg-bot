@@ -87,7 +87,7 @@ onMounted(async () => {
           </div>
         </Transition>
       </div>
-      <UploadButton v-if="userStore.isApproved" class="absolute bottom-2 right-4" />
+      <UploadButton v-if="userStore.isApproved" class="absolute bottom-2 right-4" @uploaded="loadGalleries" />
     </div>
   </div>
 </template>

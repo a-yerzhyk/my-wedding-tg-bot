@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { client } from '@/services/client/client.gen'
+import { useToast } from '@/stores/toast'
+
+const emit = defineEmits<{ uploaded: [] }>()
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const isUploading = ref(false)
+const toast = useToast()
 
 function openFilePicker() {
   fileInput.value?.click()
@@ -24,6 +28,10 @@ async function onFileChange(event: Event) {
     await client.instance.post('/api/gallery/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
+    toast.showToast('Файли завантажено успішно', 'success')
+    emit('uploaded')
+  } catch {
+    toast.showToast('Помилка завантаження файлів', 'error')
   } finally {
     isUploading.value = false
     input.value = ''
