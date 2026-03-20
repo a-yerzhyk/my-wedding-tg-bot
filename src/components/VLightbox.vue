@@ -55,6 +55,7 @@ watch(() => props.open, (val) => {
     activeIndex.value = props.startIndex
     isClosing.value = false
     controlsVisible.value = false
+    showControls()
   }
 })
 
