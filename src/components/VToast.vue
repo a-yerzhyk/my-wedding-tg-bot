@@ -12,7 +12,8 @@ const { toast } = useToast();
     'toast_warning': toast.type === 'warning',
     'toast_success': toast.type === 'success',
   }">
-    {{ toast.message }}
+    <div v-if="toast.message === 'spinner'" class="spinner spinner_small"></div>
+    <p v-else>{{ toast.message }}</p>
   </div>
 </template>
 

@@ -49,6 +49,11 @@
   border-top-color: var(--rose);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
+
+  &_small {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @keyframes spin {

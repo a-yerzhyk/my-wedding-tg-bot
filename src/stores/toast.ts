@@ -21,11 +21,7 @@ export const useToast = defineStore('toastStore', () => {
   })
 
   function showToast(message: string, type: ToastType, timeout = TOAST_DEFAULT_TIMEOUT) {
-    if (toast.show && closeTimer.value) {
-      clearTimeout(closeTimer.value)
-      closeTimer.value = null
-      toast.show = false
-    }
+    closeToast()
     if (openTimer.value) {
       clearTimeout(openTimer.value)
       openTimer.value = null
@@ -39,14 +35,23 @@ export const useToast = defineStore('toastStore', () => {
     toast.show = true
     toast.message = message
     toast.type = type
-
+    if (timeout === 0) return
     closeTimer.value = setTimeout(() => {
       toast.show = false
     }, timeout)
   }
 
+  function closeToast() {
+    if (toast.show) {
+      closeTimer.value && clearTimeout(closeTimer.value)
+      closeTimer.value = null
+      toast.show = false
+    }
+  }
+
   return {
     toast,
-    showToast
+    showToast,
+    closeToast
   }
 })

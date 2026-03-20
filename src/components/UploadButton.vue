@@ -30,6 +30,7 @@ async function onFileChange(event: Event) {
   }
 
   isUploading.value = true
+  toast.showToast('spinner', 'warning', 0)
   try {
     await client.instance.post('/api/gallery/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
