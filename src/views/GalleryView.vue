@@ -2,7 +2,7 @@
 import { useUserStore } from '@/stores/user'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { getApiGalleryByGalleryId } from '@/services/client'
-import type { GalleryDetail, MediaItem } from '@/services/types'
+import type { GalleryDetail, MediaItem, Photo, Video } from '@/services/types'
 import { useRoute, useRouter } from 'vue-router'
 import { backButton } from '@tma.js/sdk'
 import VLightbox from '@/components/VLightbox.vue'
@@ -47,33 +47,78 @@ function openLightbox(index: number) {
   lightboxOpen.value = true
 }
 
-function onMediaDeleted(mediaId: string) {
+function onMediaDeleted(mediaId: string, type: 'photo' | 'video') {
+  let mediaIndex = -1
+  let media: Photo | Video | undefined
   if (gallery.value) {
     gallery.value.photos = gallery.value.photos.filter(p => p.id !== mediaId)
     gallery.value.videos = gallery.value.videos.filter(v => v.id !== mediaId)
   }
-}
-
-function markMediaAsSoftdeleted(mediaId: string) {
   if (gallery.value) {
-    gallery.value.photos = gallery.value.photos.map(p => p.id === mediaId ? { ...p, deletedAt: 'true' } : p)
-    gallery.value.videos = gallery.value.videos.map(v => v.id === mediaId ? { ...v, deletedAt: 'true' } : v)
+    if (type === 'photo') {
+      mediaIndex = gallery.value.photos.findIndex(p => p.id === mediaId)
+      media = gallery.value.photos[mediaIndex]
+      gallery.value.photos = gallery.value.photos.filter(p => p.id !== mediaId)
+    }
+    if (type === 'video') {
+      mediaIndex = gallery.value.videos.findIndex(v => v.id === mediaId)
+      media = gallery.value.videos[mediaIndex]
+      gallery.value.videos = gallery.value.videos.filter(v => v.id !== mediaId)
+    }
+  }
+
+  // restore function
+  return function () {
+    if (gallery.value && media) {
+      if (type === 'photo') {
+        gallery.value.photos.splice(mediaIndex, 0, media)
+      }
+      if (type === 'video') {
+        gallery.value.videos.splice(mediaIndex, 0, media)
+      }
+    }
   }
 }
 
-const softDelete = async (mediaId: string) => {
-  deleteApiGalleryMediaByMediaId({ path: { mediaId } }).then(() => {
-    if (userStore.isAdmin) {
-      markMediaAsSoftdeleted(mediaId)
-    } else {
-      onMediaDeleted(mediaId)
+function markMediaAsSoftdeleted(mediaId: string, type: 'photo' | 'video') {
+  let mediaIndex = -1
+  let media: Photo | Video | undefined
+  if (gallery.value) {
+    if (type === 'photo') {
+      mediaIndex = gallery.value.photos.findIndex(p => p.id === mediaId)
+      media = gallery.value.photos[mediaIndex]
+      media && (media.deletedAt = 'true')
     }
+    if (type === 'video') {
+      mediaIndex = gallery.value.videos.findIndex(v => v.id === mediaId)
+      media = gallery.value.videos[mediaIndex]
+      media && (media.deletedAt = 'true')
+    }
+  }
+
+  return function () {
+    if (media) {
+      media.deletedAt = undefined
+    }
+  }
+}
+
+const softDelete = async (mediaId: string, type: 'photo' | 'video') => {
+  let restore: (() => void)
+  if (userStore.isAdmin) {
+    restore = markMediaAsSoftdeleted(mediaId, type)
+  } else {
+    restore = onMediaDeleted(mediaId, type)
+  }
+  deleteApiGalleryMediaByMediaId({ path: { mediaId } }).catch(() => {
+    restore()
   })
 }
 
-const hardDelete = async (mediaId: string) => {
-  deleteApiGalleryMediaByMediaIdHard({ path: { mediaId } }).then(() => {
-    onMediaDeleted(mediaId)
+const hardDelete = async (mediaId: string, type: 'photo' | 'video') => {
+  const restore = onMediaDeleted(mediaId, type)
+  deleteApiGalleryMediaByMediaIdHard({ path: { mediaId } }).catch(() => {
+    restore()
   })
 }
 

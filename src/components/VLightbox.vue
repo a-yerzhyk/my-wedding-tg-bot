@@ -12,20 +12,20 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   close: [],
-  softDelete: [string],
-  hardDelete: [string],
+  softDelete: [string, 'photo' | 'video'],
+  hardDelete: [string, 'photo' | 'video'],
 }>()
 
 const user = useUserStore()
 
-const softDelete = async (mediaId: string) => {
+const softDelete = async (mediaId: string, type: 'photo' | 'video') => {
   close()
-  emit('softDelete', mediaId)
+  emit('softDelete', mediaId, type)
 }
 
-const hardDelete = async (mediaId: string) => {
+const hardDelete = async (mediaId: string, type: 'photo' | 'video') => {
   close()
-  emit('hardDelete', mediaId)
+  emit('hardDelete', mediaId, type)
 }
 
 const activeIndex = ref(props.startIndex)
@@ -162,7 +162,7 @@ function onTouchEnd() {
         <!-- hard delete -->
         <svg
           v-if="user.isAdmin"
-          @click="() => hardDelete(media[activeIndex]?.id || '')"
+          @click="() => hardDelete(media[activeIndex]?.id || '', media[activeIndex]?.mediaType || 'photo')"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 44 44"
           width="44"
@@ -180,7 +180,7 @@ function onTouchEnd() {
         <!-- soft delete -->
         <svg
           v-if="(user.isAdmin || isOwner) && !media[activeIndex]?.deletedAt"
-          @click="() => softDelete(media[activeIndex]?.id || '')"
+          @click="() => softDelete(media[activeIndex]?.id || '', media[activeIndex]?.mediaType || 'photo')"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 44 44"
           width="44"
