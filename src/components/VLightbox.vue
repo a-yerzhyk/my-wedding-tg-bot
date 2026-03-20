@@ -42,7 +42,7 @@ let controlsTimer: ReturnType<typeof setTimeout> | null = null
 function showControls() {
   controlsVisible.value = true
   if (controlsTimer) clearTimeout(controlsTimer)
-  controlsTimer = setTimeout(() => { controlsVisible.value = false }, 2500)
+  controlsTimer = setTimeout(() => { controlsVisible.value = false }, 1300)
 }
 
 function hideControls() {
