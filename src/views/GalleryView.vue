@@ -54,9 +54,20 @@ function onMediaDeleted(mediaId: string) {
   }
 }
 
+function markMediaAsSoftdeleted(mediaId: string) {
+  if (gallery.value) {
+    gallery.value.photos = gallery.value.photos.map(p => p.id === mediaId ? { ...p, deletedAt: 'true' } : p)
+    gallery.value.videos = gallery.value.videos.map(v => v.id === mediaId ? { ...v, deletedAt: 'true' } : v)
+  }
+}
+
 const softDelete = async (mediaId: string) => {
   deleteApiGalleryMediaByMediaId({ path: { mediaId } }).then(() => {
-    onMediaDeleted(mediaId)
+    if (userStore.isAdmin) {
+      markMediaAsSoftdeleted(mediaId)
+    } else {
+      onMediaDeleted(mediaId)
+    }
   })
 }
 
