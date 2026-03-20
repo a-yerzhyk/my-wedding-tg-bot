@@ -55,7 +55,7 @@ const { toast } = useToast();
   }
 
   &_warning {
-    background-color: #FFD700;
+    background-color: var(--bark);
   }
 }
 </style>

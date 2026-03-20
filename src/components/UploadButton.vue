@@ -18,6 +18,12 @@ async function onFileChange(event: Event) {
   const files = input.files
   if (!files || files.length === 0) return
 
+  if (files.length > 5) {
+    toast.showToast('Не більше 5 файлів за раз', 'warning', 5000)
+    input.value = ''
+    return
+  }
+
   const formData = new FormData()
   for (const file of files) {
     formData.append('files', file)
@@ -28,10 +34,10 @@ async function onFileChange(event: Event) {
     await client.instance.post('/api/gallery/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
-    toast.showToast('Файли завантажено успішно', 'success')
+    toast.showToast('Завантажено!', 'success')
     emit('uploaded')
   } catch {
-    toast.showToast('Помилка завантаження файлів', 'error')
+    toast.showToast('Помилка при завантаженні', 'error')
   } finally {
     isUploading.value = false
     input.value = ''
