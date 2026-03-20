@@ -5,7 +5,7 @@ import WishlistView from '../views/WishlistView.vue'
 import GalleriesView from '../views/GalleriesView.vue'
 import GalleryView from '../views/GalleryView.vue'
 import AdminView from '../views/AdminView.vue'
-import GalleryViewTest from '../views/GalleryViewTest.vue'
+import TestView from '../views/TestView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,7 +43,7 @@ const router = createRouter({
     {
       path: '/test',
       name: 'test',
-      component: GalleryViewTest
+      component: TestView
     },
   ],
 })
